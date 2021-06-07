@@ -12,8 +12,8 @@ const fromString = (
 
 export const texts = [
   {
-    title: "Javascript",
-    path: "/javascript",
+    title: "Typescript",
+    path: "typescript",
     input: [
       "var",
       "let",
@@ -22,6 +22,7 @@ export const texts = [
       "Math",
       "JSON",
       "stringify",
+      "map",
       "array",
       "number",
       "function",
@@ -35,7 +36,7 @@ export const texts = [
   },
   {
     title: "C#",
-    path: "/csharp",
+    path: "csharp",
     input: [
       "var",
       "record",
@@ -48,17 +49,18 @@ export const texts = [
       "System",
       "interface",
       "return",
+      "Exception"
     ],
     shouldShuffle: true,
   },
   fromString(
-    "/torn",
+    "torn",
     "Törnrosa",
     "Det ska vi nog ta reda på tänkte den gamla drottningen men hon sa ingenting gick bara in i gästrummet lyfte bort alla sängkläderna och la en ärta i botten på sängen",
     false
   ),
   fromString(
-    "/bord",
+    "bord",
     "Bord duka dig",
     "Sonen kom i lära hos en snickare och när hans läroår var slut fick han ett litet bord av sin arbetsgivare",
     false
