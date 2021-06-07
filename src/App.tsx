@@ -3,6 +3,7 @@ import Words from "./Components/Words";
 import "./App.css";
 import { texts } from "./texts";
 import useWord from "./useWord";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const TypingTest = ({ input, shouldShuffle }: TestProps) => {
   const { current, inputChange, wpm, done, words, wordIdx } = useWord(
@@ -35,24 +36,25 @@ interface TestProps {
 }
 
 function App() {
-  const [selectedTest, setSelectedTest] = useState<TestProps>(texts[0]);
   return (
     <div className="app">
-      <div id="menu">
-        {texts.map(({ title, ...test }) => (
-          <div
-            key={title}
-            className="button"
-            onClick={() => setSelectedTest(test)}
-          >
-            {title}
-          </div>
+      <Router>
+        <div id="menu">
+          {texts.map(({ title, path }) => (
+            <Link key={title} to={path} className="button">
+              {title}
+            </Link>
+          ))}
+        </div>
+        {texts.map(({ path, title, ...selectedTest }) => (
+          <Route path={path}>
+            <TypingTest {...selectedTest} />
+          </Route>
         ))}
-      </div>
-      <TypingTest {...selectedTest} />
-      <a href="https://github.com/matst80/code-typing-test">
-        <img width="80" src="github.png" alt="Github" />
-      </a>
+        <a href="https://github.com/matst80/code-typing-test">
+          <img width="80" src="github.png" alt="Github" />
+        </a>
+      </Router>
     </div>
   );
 }
