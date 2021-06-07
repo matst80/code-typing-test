@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Words from "./Components/Words";
 import "./App.css";
 
+const sagaWords = 'När hon svarade att hon ingenting fått blev skräddaren arg och körde ut sin son från hemmet'.split(' ');
+
 const javascriptWords = [
   "var",
   "let",
@@ -20,7 +22,8 @@ const javascriptWords = [
   "const",
 ];
 
-function shuffle(array: string[]) {
+function shuffle(array: string[], doShuffle = true) {
+  if (!doShuffle) return [...array];
   let currentIndex = array.length,
     randomIndex;
   while (0 !== currentIndex) {
@@ -37,7 +40,7 @@ function shuffle(array: string[]) {
 
 const MINUTE = 1000 * 60;
 
-const useWord = (wordList: string[]) => {
+const useWord = (wordList: string[], shouldShuffle = true) => {
   const [words, setWords] = useState<string[]>([]);
   const [started, setStarted] = useState<number | undefined>();
   const [ended, setEnded] = useState<number | undefined>();
@@ -45,7 +48,7 @@ const useWord = (wordList: string[]) => {
   const [wordIdx, setWordIdx] = useState<number>(0);
 
   useEffect(() => {
-    setWords(shuffle(wordList));
+    setWords(shuffle(wordList, shouldShuffle));
     setCurrent("");
     setWordIdx(0);
     setStarted(undefined);
@@ -88,7 +91,7 @@ const useWord = (wordList: string[]) => {
 
 function App() {
   const { current, inputChange, wpm, done, words, wordIdx } =
-    useWord(javascriptWords);
+    useWord(sagaWords, false);
   return (
     <div className="app">
       {!done && (

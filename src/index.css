@@ -35,7 +35,6 @@ p {
 }
 
 div.active-word {
-  
   color: #fefefe;
 }
 
@@ -45,7 +44,7 @@ div.active-word {
 }
 
 input {
-  margin:0 auto;
+  margin: 0 auto;
   padding: 1rem 2rem;
   background-color: #3c4049;
   border: #6d717a solid 1px;
