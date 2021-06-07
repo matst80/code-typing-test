@@ -49,7 +49,7 @@ div.active-word {
   background-color: #a29bfe;
   cursor: pointer;
   color:#fff;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
   border-radius: 5px;
   margin-right: 1rem;
   text-transform: uppercase;
