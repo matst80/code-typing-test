@@ -14,13 +14,13 @@ const Words = ({ words, idx, current }: WordsProps) => {
   const elms = left.map((word, i) => {
     if (i === 0) {
       return (
-        <div key={word} className="active-word">
+        <div key={`${word}-${idx+i}`} className="active-word">
           <Word word={word} current={current} />
         </div>
       );
     } else {
       return (
-        <div key={word}>
+        <div key={`${word}-${idx+i}`}>
           <span>{word}</span>
         </div>
       );

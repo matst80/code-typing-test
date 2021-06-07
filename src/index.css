@@ -39,6 +39,22 @@ div.active-word {
   color: #fefefe;
 }
 
+#menu {
+  font-size: 1rem;
+  display: flex;
+  margin-bottom: 4rem;
+}
+
+#menu .button {
+  background-color: #a29bfe;
+  cursor: pointer;
+  color:#fff;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  margin-right: 1rem;
+  text-transform: uppercase;
+}
+
 .input {
   display: flex;
   justify-items: center;
