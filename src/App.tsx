@@ -41,18 +41,25 @@ function App() {
       <Router>
         <div id="menu">
           {texts.map(({ title, path }) => (
-            <Link key={title} to={path} className="button">
+            <Link key={`menuitem-${title}`} to={path} className="button">
               {title}
             </Link>
           ))}
         </div>
         {texts.map(({ path, title, ...selectedTest }) => (
-          <Route path={path}>
-            <TypingTest {...selectedTest} />
-          </Route>
+          <>
+            <Route key={`r-${title}`} path={path} exact>
+              <h2>{title}</h2>
+              <TypingTest {...selectedTest} />
+            </Route>
+            <Route key={`rtop-${title}`} path={path + "/top"} exact>
+              <h2>{title}</h2>
+              <p>Slaska</p>
+            </Route>
+          </>
         ))}
         <a href="https://github.com/matst80/code-typing-test">
-          <img width="80" src="github.png" alt="Github" />
+          <img width="80" src="/github.png" alt="Github" />
         </a>
       </Router>
     </div>
