@@ -8,7 +8,7 @@ const getLetter = (word: string[], current: string[]) => (idx: number) => {
   const isCorrect = hasEntered && word[idx] === current[idx];
   return hasEntered
     ? {
-        color: isCorrect ? "green" : "red",
+        color: isCorrect ? "#55efc4" : "#ff7675",
       }
     : {};
 };
