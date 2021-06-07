@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Words from "./Components/Words";
 import "./App.css";
 import { texts } from "./texts";
 import useWord from "./useWord";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const TypingTest = ({ input, shouldShuffle }: TestProps) => {
   const { current, inputChange, wpm, done, words, wordIdx } = useWord(
@@ -25,7 +25,7 @@ const TypingTest = ({ input, shouldShuffle }: TestProps) => {
         </div>
       )}
 
-      {done && <span>{wpm} words per minute</span>}
+      {done && <span>{wpm} words per minute. Press space to restart</span>}
     </div>
   );
 };

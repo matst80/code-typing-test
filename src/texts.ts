@@ -12,6 +12,12 @@ const fromString = (
 
 export const texts = [
   {
+    title: "TEST",
+    path: "/test",
+    input: ["i"],
+    shouldShuffle: false,
+  },
+  {
     title: "Javascript",
     path: "/javascript",
     input: [

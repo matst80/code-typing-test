@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { shuffle } from "./texts";
 
 const MINUTE = 1000 * 60;
@@ -10,14 +10,35 @@ const useWord = (wordList: string[], shouldShuffle = true) => {
   const [current, setCurrent] = useState<string>("");
   const [wordIdx, setWordIdx] = useState<number>(0);
 
-  useEffect(() => {
+  const resetGame = useCallback(() => {
     setWords(shuffle(wordList, shouldShuffle));
     setCurrent("");
     setWordIdx(0);
     setStarted(undefined);
     setEnded(undefined);
-    return () => {};
   }, [wordList, shouldShuffle]);
+
+  useEffect(() => {
+    resetGame();
+    return () => {};
+  }, [resetGame]);
+
+  const handleResetGame = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === " ") {
+        resetGame();
+      }
+    },
+    [resetGame]
+  );
+
+  useEffect(() => {
+    if (!!ended) {
+      window.addEventListener("keydown", handleResetGame);
+    } else {
+      window.removeEventListener("keydown", handleResetGame);
+    }
+  }, [ended, handleResetGame]);
 
   const word = words.length ? words[wordIdx] : "loading";
 
