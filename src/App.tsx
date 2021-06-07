@@ -12,9 +12,9 @@ const tests = [
     shouldShuffle: false,
   },
   {
-    title: "Svensk saga",
+    title: "Bord duka dig",
     input:
-      "När hon svarade att hon ingenting fått blev skräddaren arg och körde ut sin son från hemmet".split(
+      "Den ädste sonen kom i lära hos en snickare och när hans läroår var slut fick han ett litet bord av sin arbetsgivare".split(
         " "
       ),
     shouldShuffle: false,
