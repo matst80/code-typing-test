@@ -27,14 +27,15 @@ p {
 .words div {
   display: inline-block;
   margin: 0 2rem 0 0;
-  overflow-y: hidden;
+  overflow: visible;
 }
 
 .words {
   color: #ccc;
+  overflow: hidden;
 }
 
-div.active-word {
+div.active-word { 
   color: #fefefe;
 }
 
