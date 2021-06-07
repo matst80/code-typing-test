@@ -50,6 +50,9 @@ function App() {
         ))}
       </div>
       <TypingTest {...selectedTest} />
+      <a href="https://github.com/matst80/code-typing-test">
+        <img width="80" src="github.png" alt="Github" />
+      </a>
     </div>
   );
 }

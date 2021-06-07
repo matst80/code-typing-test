@@ -48,7 +48,7 @@ export const texts = [
   {
     title: "Bord duka dig",
     input:
-      "Den ädste sonen kom i lära hos en snickare och när hans läroår var slut fick han ett litet bord av sin arbetsgivare".split(
+      "Sonen kom i lära hos en snickare och när hans läroår var slut fick han ett litet bord av sin arbetsgivare".split(
         " "
       ),
     shouldShuffle: false,
