@@ -95,7 +95,7 @@ function App() {
         <div>
           <Words words={words} idx={wordIdx} current={current} />
           <div className="input">
-            <input value={current} autofocus onChange={inputChange} />
+            <input value={current} autoFocus onChange={inputChange} />
           </div>
         </div>
       )}
