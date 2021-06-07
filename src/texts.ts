@@ -11,7 +11,6 @@ const fromString = (
 });
 
 export const texts = [
-  fromString("tst", "test", "i a", false),
   {
     title: "Typescript",
     path: "typescript",
