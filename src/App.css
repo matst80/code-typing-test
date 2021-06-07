@@ -8,3 +8,27 @@
   font-size: 3rem;
   color: white;
 }
+
+.button {
+  cursor: pointer;
+  border: #a29bfe solid 1px;
+  color:#a29bfe;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 1rem;
+  font-size: 1rem;
+}
+
+input {
+  margin: 2rem auto;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-family: "Noto Sans JP", "Helvetica Neue", sans-serif;
+  background-color: transparent;
+  border: #a29bfe solid 1px;
+  color:#a29bfe;
+  outline: none !important;
+  border-radius: 5px;
+  color: #eee;
+}

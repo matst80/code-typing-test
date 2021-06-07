@@ -23,23 +23,6 @@ const useWord = (wordList: string[], shouldShuffle = true) => {
     return () => {};
   }, [resetGame]);
 
-  const handleResetGame = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === " ") {
-        resetGame();
-      }
-    },
-    [resetGame]
-  );
-
-  useEffect(() => {
-    if (!!ended) {
-      window.addEventListener("keydown", handleResetGame);
-    } else {
-      window.removeEventListener("keydown", handleResetGame);
-    }
-  }, [ended, handleResetGame]);
-
   const word = words.length ? words[wordIdx] : "loading";
 
   const inputChange = (e: any) => {
@@ -60,7 +43,7 @@ const useWord = (wordList: string[], shouldShuffle = true) => {
 
   const now = Date.now();
   const duration = (ended ?? now) - (started ?? now);
-
+  const wpm = Math.round((wordIdx + 1) / (duration / MINUTE));
   return {
     word,
     current,
@@ -69,7 +52,15 @@ const useWord = (wordList: string[], shouldShuffle = true) => {
     done: !!ended,
     words,
     wordIdx,
-    wpm: Math.round((wordIdx + 1) / (duration / MINUTE)),
+    resetGame,
+    game: Boolean(ended)
+      ? {
+          score: wpm,
+          start: started,
+          end: ended,
+        }
+      : {},
+    wpm,
   };
 };
 

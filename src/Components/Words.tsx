@@ -11,21 +11,18 @@ interface WordsProps {
 const Words = ({ words, idx, current }: WordsProps) => {
   const left = words.filter((_, i) => i >= idx && i < idx + 5);
 
-  const elms = left.map((word, i) => {
-    if (i === 0) {
-      return (
-        <div key={`${word}-${idx + i}`} className="active-word">
-          <Word word={word} current={current} />
-        </div>
-      );
-    } else {
-      return (
-        <div key={`${word}-${idx + i}`}>
-          <span>{word}</span>
-        </div>
-      );
-    }
-  });
+  const elms = left.map((word, i) =>
+    i === 0 ? (
+      <div key={`${word}-${idx + i}`} className="active-word">
+        <Word word={word} current={current} />
+      </div>
+    ) : (
+      <div key={`${word}-${idx + i}`}>
+        <span>{word}</span>
+      </div>
+    )
+  );
+
   return (
     <div className="words">
       <FlipMove>{elms}</FlipMove>

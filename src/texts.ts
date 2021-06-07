@@ -11,6 +11,7 @@ const fromString = (
 });
 
 export const texts = [
+  fromString("tst", "test", "i a", false),
   {
     title: "Typescript",
     path: "typescript",
@@ -49,7 +50,7 @@ export const texts = [
       "System",
       "interface",
       "return",
-      "Exception"
+      "Exception",
     ],
     shouldShuffle: true,
   },

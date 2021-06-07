@@ -1,107 +1,63 @@
-import React, { useEffect, useRef } from "react";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-import Words from "./Components/Words";
+import React, { useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import "./App.css";
 import { texts } from "./texts";
-import useWord from "./useWord";
 import {
   BrowserRouter as Router,
   Route,
   Link,
   useParams,
 } from "react-router-dom";
-
-const TypingTest = ({ input, shouldShuffle }: TestProps) => {
-  const { current, inputChange, wpm, done, words, wordIdx } = useWord(
-    input,
-    shouldShuffle
-  );
-  const ref = useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    ref?.current?.focus();
-  }, [input, ref]);
-  return (
-    <div>
-      {!done && (
-        <div>
-          <Words words={words} idx={wordIdx} current={current} />
-          <div className="input">
-            <input ref={ref} value={current} autoFocus onChange={inputChange} />
-          </div>
-        </div>
-      )}
-
-      {done && <span>{wpm} words per minute. Press space to restart</span>}
-    </div>
-  );
-};
-
-interface TestProps {
-  input: string[];
-  shouldShuffle: boolean;
-}
+import TypingTest from "./Components/TypingTest";
+import { startGame } from "./api";
+import ScoreBoard from "./Components/ScoreBoard";
 
 const TestLink = ({ path, title }: any) => {
+  const { gameId } = useParams<RouteParams>();
+  const className = path === gameId ? "selected button" : "button";
   return (
-    <Link key={`menuitem-${title}`} to={"/run/" + path} className={"button"}>
+    <Link key={`menuitem-${title}`} to={"/run/" + path} className={className}>
       {title}
     </Link>
   );
 };
 
-interface Score {
-  score: number;
-  nick: string;
+interface UserProps {
+  userId?: number;
 }
 
-const orderByScore = (scores: Score[]) =>
-  scores.sort((a, b) => b.score - a.score);
+interface RouteParams {
+  gameId: string;
+}
 
-const useScoreboard = (id: string) => {
-  const { data: top = [], isLoading } = useQuery(`gamescore-${id}`, () =>
-    fetch(`https://type.knatofs.se/api/${id}`)
-      .then((d) => d.json())
-      .then(orderByScore)
+const TypingRoute = ({ userId }: UserProps) => {
+  const { gameId } = useParams<RouteParams>();
+  const selectedTest = texts.find((d) => d.path === gameId);
+  return !!selectedTest ? (
+    <TypingTest {...selectedTest} userId={userId} gameId={gameId} />
+  ) : (
+    <div>Invalid keyword</div>
   );
-  return { top, isLoading };
 };
 
 const TopList = () => {
-  const { testId } = useParams<any>();
-  const { isLoading, top } = useScoreboard(testId);
-  if (isLoading) {
-    return <div>Loading scores</div>;
-  }
+  const { gameId } = useParams<RouteParams>();
   return (
     <div>
-      <h2>Scoreboard</h2>
-      <ul>
-        {top.map(({ score, nick }: any) => {
-          return (
-            <li>
-              <span>{nick}</span>
-              <i>{score}</i>
-            </li>
-          );
-        })}
-      </ul>
+      <div>Scoreboard</div>
+      <ScoreBoard gameId={gameId} />
     </div>
-  );
-};
-
-const TypingRoute = () => {
-  const { testId } = useParams<any>();
-  const selectedTest = texts.find((d) => d.path === testId);
-  return !!selectedTest ? (
-    <TypingTest {...selectedTest} />
-  ) : (
-    <div>Invalid keyword</div>
   );
 };
 
 const queryClient = new QueryClient();
 
 function App() {
+  const [userId, setUserId] = useState<number | undefined>();
+  useEffect(() => {
+    startGame().then(setUserId);
+  }, []);
+
   return (
     <div className="app">
       <QueryClientProvider client={queryClient}>
@@ -111,22 +67,15 @@ function App() {
               <TestLink key={`menuitem-${title}`} path={path} title={title} />
             ))}
           </div>
-          <Route path={"/run/:testId"}>
-            <TypingRoute />
+          <Route path={"/run/:gameId"}>
+            <TypingRoute userId={userId} />
           </Route>
-          <Route path={"/top/:testId"}>
+          <Route path={"/top/:gameId"}>
             <TopList />
           </Route>
-          {/* {texts.map(({ path, title, ...selectedTest }) => (
-          <>
-            <Route key={`r-${title}`} path={path} exact>
-              <TypingTest {...selectedTest} />
-            </Route>
-            <Route key={`rtop-${title}`} path={path + "/top"} exact>
-              <p>Slaska</p>
-            </Route>
-          </>
-        ))} */}
+          <Route path="/" exact>
+            <p>Select category</p>
+          </Route>
         </Router>
         <a id="github" href="https://github.com/matst80/code-typing-test">
           <img width="80" src="/github.png" alt="Github" />
