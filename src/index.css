@@ -39,6 +39,12 @@ div.active-word {
   color: #fefefe;
 }
 
+#github {
+  position: absolute;
+  bottom:1rem;
+  right:1rem;
+}
+
 #menu {
   font-size: 1rem;
   display: flex;
