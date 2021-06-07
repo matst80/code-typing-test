@@ -17,7 +17,13 @@ const TypingTest = ({ input, shouldShuffle, userId, gameId }: TestProps) => {
         <div>
           <Words words={words} idx={wordIdx} current={current} />
           <div className="input">
-            <input ref={ref} value={current} id="word-input" autoFocus onChange={inputChange} />
+            <input
+              ref={ref}
+              value={current}
+              id="word-input"
+              autoFocus
+              onChange={inputChange}
+            />
           </div>
         </div>
       )}
