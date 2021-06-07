@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import useKeyboard from "../useShortcuts";
 import useWord from "../useWord";
 import ScoreBoard from "./ScoreBoard";
 import SubmitHighScore from "./SubmitHighscore";
@@ -7,10 +8,14 @@ import Words from "./Words";
 const TypingTest = ({ input, shouldShuffle, userId, gameId }: TestProps) => {
   const { current, inputChange, wpm, done, words, wordIdx, game, resetGame } =
     useWord(input, shouldShuffle);
+
   const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
     ref?.current?.focus();
   }, [input, ref]);
+
+  useKeyboard(gameId, { Escape: resetGame });
+
   return (
     <div>
       {!done && (
@@ -31,7 +36,7 @@ const TypingTest = ({ input, shouldShuffle, userId, gameId }: TestProps) => {
       {done && (
         <>
           <span onClick={resetGame}>
-            {wpm} words per minute. Press to restart
+            {wpm} words per minute. Click to restart
           </span>
           <SubmitHighScore data={game} userId={userId} gameId={gameId} />
           <ScoreBoard gameId={gameId} />

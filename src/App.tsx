@@ -11,6 +11,7 @@ import {
 import TypingTest from "./Components/TypingTest";
 import { startGame } from "./api";
 import ScoreBoard from "./Components/ScoreBoard";
+import useKeyboard from "./useShortcuts";
 
 const TestLink = ({ path, title }: any) => {
   const { gameId } = useParams<RouteParams>();
@@ -42,6 +43,7 @@ const TypingRoute = ({ userId }: UserProps) => {
 
 const TopList = () => {
   const { gameId } = useParams<RouteParams>();
+  useKeyboard(gameId);
   return (
     <div>
       <div>Scoreboard</div>
