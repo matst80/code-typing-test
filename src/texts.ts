@@ -1,3 +1,9 @@
+const fromString = (title: string, text: string, shouldShuffle = true) => ({
+  title,
+  shouldShuffle,
+  input: text.split(" "),
+});
+
 export const texts = [
   {
     title: "Javascript",
@@ -37,30 +43,23 @@ export const texts = [
     ],
     shouldShuffle: true,
   },
-  {
-    title: "Törnrosa",
-    input:
-      "Det ska vi nog ta reda på tänkte den gamla drottningen men hon sa ingenting gick bara in i gästrummet lyfte bort alla sängkläderna och la en ärta i botten på sängen".split(
-        " "
-      ),
-    shouldShuffle: false,
-  },
-  {
-    title: "Bord duka dig",
-    input:
-      "Sonen kom i lära hos en snickare och när hans läroår var slut fick han ett litet bord av sin arbetsgivare".split(
-        " "
-      ),
-    shouldShuffle: false,
-  },
+  fromString(
+    "Törnrosa",
+    "Det ska vi nog ta reda på tänkte den gamla drottningen men hon sa ingenting gick bara in i gästrummet lyfte bort alla sängkläderna och la en ärta i botten på sängen",
+    false
+  ),
+  fromString(
+    "Bord duka dig",
+    "Sonen kom i lära hos en snickare och när hans läroår var slut fick han ett litet bord av sin arbetsgivare",
+    false
+  ),
 ];
 
 export function shuffle(array: string[], doShuffle = true) {
   if (!doShuffle) return [...array];
-  let currentIndex = array.length,
-    randomIndex;
+  let currentIndex = array.length;
   while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    const randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
