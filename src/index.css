@@ -28,6 +28,7 @@ p {
   display: inline-block;
   margin: 0 2rem 0 0;
   overflow-y: hidden;
+  overflow-x: visible;
 }
 
 .words {
