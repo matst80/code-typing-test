@@ -42,7 +42,8 @@ div.active-word {
 #menu {
   font-size: 1rem;
   display: flex;
-  margin-bottom: 4rem;
+  top: 2rem;
+  position: absolute;
 }
 
 #menu .button {
