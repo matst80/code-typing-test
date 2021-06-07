@@ -27,7 +27,7 @@ p {
 .words div {
   display: inline-block;
   margin: 0 2rem 0 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .words {
@@ -35,8 +35,7 @@ p {
   overflow: hidden;
 }
 
-div.active-word {
-  
+div.active-word { 
   color: #fefefe;
 }
 
