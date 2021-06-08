@@ -15,7 +15,7 @@ FROM node:14
 # Create app directory
 WORKDIR /usr/src/app
 
-COPY index.js .
+COPY index.js ./
 
 COPY --from=build-stage /app/build /usr/src/app/build
 
