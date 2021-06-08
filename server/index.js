@@ -86,6 +86,10 @@ app.post('/api/:gameId', cors(corsOptions), (req, res) => {
     }
 });
 
+app.get('*', (_, res) => {
+    res.sendFile('./build/index.html'));
+});
+
 const port = process.env.PORT || 3030;
 
 app.listen(port, () => {
