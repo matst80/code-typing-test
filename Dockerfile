@@ -10,15 +10,14 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# -----------------------------------------------------------------------------
-# SERVING IMAGE
-FROM fitiavana07/nginx-react
+FROM node:14
 
-# Copy built files
-COPY --from=build-stage /app/build /usr/share/nginx/html
+# Create app directory
+WORKDIR /usr/src/app
 
-# 80 for HTTP
-EXPOSE 80
+COPY index.js .
 
-# Run nginx
-CMD nginx -g 'daemon off;'
+COPY --from=build-stage /app/build /usr/src/app/build
+
+EXPOSE 3030
+CMD [ "node", "index.js" ]
