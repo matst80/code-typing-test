@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: type-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: typeweb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: typeweb
+    spec:
+      containers:
+        - name: web
+          image: registry.knatofs.se/type-test:latest
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "256Mi"
+            limits:
+              cpu: "400m"
+              memory: "512Mi"
+          env:
+            - name: REDIS
+              value: "redis://redis-service.default.svc:6379"
+            - name: NODENAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          ports:
+            - containerPort: 3030
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: type-web
+  labels:
+    run: typeweb
+spec:
+  ports:
+    - port: 3030
+      targetPort: 3030
+      protocol: TCP
+  selector:
+    app: typeweb
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: type-torberg-me
+spec:
+  dnsNames:
+    - "type.tornberg.me"
+  secretName: type-torberg-me
+  issuerRef:
+    name: le-global-issuer
+    kind: ClusterIssuer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: type-deployment
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "type.tornberg.me"
+      secretName: type-torberg-me
+  rules:
+    - host: type.tornberg.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: type-web
+                port:
+                  number: 3030

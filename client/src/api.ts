@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-const baseUrl = "https://type.knatofs.se/api";
+const baseUrl = "/api";
 
 export interface Score {
   score: number;

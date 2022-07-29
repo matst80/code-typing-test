@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 const redis = require("redis");
 const cors = require('cors')
-const client = redis.createClient('redis://10.10.11.128:6379');
+const client = redis.createClient(process.env.REDIS || 'redis://10.10.10.2:6379');
 
 const hashCode = (s) => s.split("").reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0);
 
 const corsOptions = {
     origin: (origin, cb) => {
-        cb(null, (!origin || (origin.includes('//localhost:30') || origin.includes('.knatofs'))));
+        cb(null, (!origin || (origin.includes('//localhost:30') || origin.includes('.knatofs') || origin.includes('.tornberg'))));
     }
 };
 
@@ -87,7 +87,7 @@ app.post('/api/:gameId', cors(corsOptions), (req, res) => {
 });
 
 app.get('*', (_, res) => {
-    res.sendFile('./build/index.html'));
+    res.sendFile('./build/index.html');
 });
 
 const port = process.env.PORT || 3030;
