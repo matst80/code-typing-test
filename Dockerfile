@@ -1,4 +1,4 @@
-FROM node:14-alpine as build-stage
+FROM node:18-alpine as build-stage
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN npm install
 COPY client/. .
 RUN npm run build
 
-FROM node:14
+FROM node:18-alpine
 
 # Create app directory
 
@@ -19,7 +19,7 @@ COPY --from=build-stage /app/build /usr/src/app/build
 WORKDIR /usr/src/app
 COPY server/. .
 
-RUN npm install
+RUN npm ci
 
 EXPOSE 3030
 CMD [ "node", "index.js" ]
