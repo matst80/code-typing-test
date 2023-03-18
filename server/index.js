@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const redis = require("redis");
 const cors = require("cors");
+const fs = require("fs");
 const client = redis.createClient(
   process.env.REDIS || "redis://10.10.10.2:6379"
 );
@@ -25,23 +26,6 @@ const corsOptions = {
 };
 
 app.use(express.json());
-
-// app.get('/', (req, res) => {
-//     const app = ReactDOMServer.renderToString(<App />);
-
-//     const indexFile = path.resolve('./build/index.html');
-//     fs.readFile(indexFile, 'utf8', (err, data) => {
-//       if (err) {
-//         console.error('Something went wrong:', err);
-//         return res.status(500).send('Oops, better luck next time!');
-//       }
-
-//       return res.send(
-//         data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
-//       );
-//     });
-//   });
-
 app.use(express.static("./build"));
 
 app.options("/api/*", cors());
