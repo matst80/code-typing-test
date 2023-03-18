@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const redis = require("redis");
 const cors = require("cors");
-const fs = require("fs");
+
 const client = redis.createClient(
   process.env.REDIS || "redis://10.10.10.2:6379"
 );
@@ -26,6 +27,7 @@ const corsOptions = {
 };
 
 app.use(express.json());
+
 app.use(express.static("./build"));
 
 app.options("/api/*", cors());
@@ -91,10 +93,8 @@ app.post("/api/:gameId", cors(corsOptions), (req, res) => {
   }
 });
 
-const index = fs.readFileSync("./build/index.html", "utf8");
-
 app.get("*", (_, res) => {
-  res.status(200).html(index);
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 const port = process.env.PORT || 3030;
