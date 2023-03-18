@@ -22,6 +22,7 @@ module.exports = async (k8s, { sha }) => {
           containers: [
             {
               name: "web",
+              imagePullPolicy: "Always",
               image: `registry.knatofs.se/type-test:${sha}`,
               resources: {
                 requests: {
