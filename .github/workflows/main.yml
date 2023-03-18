@@ -24,7 +24,6 @@ jobs:
           cache-from: type=gha,scope=api
           cache-to: type=gha,scope=api,mode=max
           tags: registry.knatofs.se/type-test:${{github.sha}}
-      - uses: actions/checkout@v3
       - name: Deploy scripted application
         uses: matst80/slask-action@main
         env:
