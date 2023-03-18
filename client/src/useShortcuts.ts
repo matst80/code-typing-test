@@ -1,14 +1,17 @@
 import { useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 interface Shortcut {
   [key: string]: () => void;
 }
 
-const useKeyboard = (gameId: string | undefined, shortcuts: Shortcut|undefined = undefined) => {
-  const { push } = useHistory();
+const useKeyboard = (
+  gameId: string | undefined,
+  shortcuts: Shortcut | undefined = undefined
+) => {
+  const push = useNavigate();
   const keyup = ({ code }: any) => {
-      console.log(code);
+    console.log(code);
     if (code === "F2") push(`/top/${gameId}`);
     if (code === "F4") push(`/run/${gameId}`);
     if (shortcuts) {

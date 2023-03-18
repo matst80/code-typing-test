@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY client/package*.json ./
-RUN npm install
+RUN npm ci
 
 # Build
 COPY client/. .
@@ -14,7 +14,7 @@ FROM node:18-alpine
 
 # Create app directory
 
-COPY --from=build-stage /app/build /usr/src/app/build
+COPY --from=build-stage /app/dist /usr/src/app/build
 
 WORKDIR /usr/src/app
 COPY server/. .

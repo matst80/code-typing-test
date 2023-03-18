@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { sendScore } from "../api";
 
 interface ScoreProps {
@@ -12,7 +12,7 @@ const SubmitHighScore = ({ gameId, userId, data }: ScoreProps) => {
   const [nick, setNick] = useState<string>(
     localStorage.getItem("nick") || "Anonymous"
   );
-  const { push } = useHistory();
+  const push = useNavigate();
 
   const updateNick = (e: any) => {
     const value = e.target.value;
@@ -32,7 +32,8 @@ const SubmitHighScore = ({ gameId, userId, data }: ScoreProps) => {
   };
   return (
     <div>
-      <input placeholder="Nickname" value={nick} onChange={updateNick} />&nbsp;
+      <input placeholder="Nickname" value={nick} onChange={updateNick} />
+      &nbsp;
       <span className="button" onClick={submitScore}>
         Submit highscore
       </span>
